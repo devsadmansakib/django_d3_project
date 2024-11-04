@@ -8,19 +8,22 @@
 
 <form method="POST" action="{% url "signup" %}">
     {% csrf_token %}
+    
     {% if form.errors %}
-			<div class="alert alert-warning alert-dismissible fade show" role="alert">
-			  Your Form Has Errors
-			  {% for field in form %}
-			  	{% if field.errors %}
-			  		{{ field.errors }}
-			  	{% endif %}
-			  {% endfor %}
-			  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-			</div>
-		{% endif %}
+        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+            It looks like there might have been a mistake. Please review the information provided below:
+            {% for field in form %}
+                {% if field.errors %}
+                    {{ field.errors }}
+                {% endif %}
+            {% endfor %}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    {% endif %}
 
-    {{form.as_p }}
+    {{ form.as_p }}
 
     <br>
     <button type="submit" class="btn btn-secondary">Register</button>
