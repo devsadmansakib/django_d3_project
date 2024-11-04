@@ -11,22 +11,25 @@ from .models import SampleData
 from .serializers import SampleDataSerializer
 from .forms import SignUpForm
 
+# ---------------------------------------
+# Authentication Views
+# ---------------------------------------
 
+
+# View for user signup
 def signup_view(request):
     if request.method == "POST":
         form = SignUpForm(request.POST)
         if form.is_valid():
             user = form.save()  # Save the new user to the database
             login(request, user)  # Log in the user immediately after signup
-            return redirect(
-                "dashboard"
-            )  # Redirect to the dashboard or desired page after signup
+            return redirect("dashboard")  # Redirect to the dashboard after signup
     else:
         form = SignUpForm()
     return render(request, "signup.html", {"form": form})
 
 
-# Web view for login
+# View for user login
 def login_view(request):
     if request.method == "POST":
         username = request.POST.get("username")
@@ -38,12 +41,24 @@ def login_view(request):
     return render(request, "login.html")
 
 
+# View for user logout
+def logout_view(request):
+    logout(request)
+    return redirect("login")  # Redirect to the login page after logout
+
+
+# ---------------------------------------
+# Web Views
+# ---------------------------------------
+
+
+# Dashboard view (requires login)
 @login_required
 def dashboard_view(request):
     return render(request, "dashboard.html")
 
 
-# Web view for rendering chart
+# Chart view for displaying D3.js chart (requires login)
 @login_required
 def chart_view(request):
     data = SampleData.objects.all()
@@ -52,7 +67,18 @@ def chart_view(request):
     return render(request, "chart.html", {"data": data_json})
 
 
-# API view to get chart data
+# API documentation view (requires login)
+@login_required
+def api_documentation_view(request):
+    return render(request, "api_documentation.html")
+
+
+# ---------------------------------------
+# API Views
+# ---------------------------------------
+
+
+# API view to get chart data (requires authentication)
 class ChartDataAPI(APIView):
     permission_classes = [IsAuthenticated]
 
@@ -60,13 +86,3 @@ class ChartDataAPI(APIView):
         data = SampleData.objects.all()
         serializer = SampleDataSerializer(data, many=True)
         return Response(serializer.data)
-
-
-def logout_view(request):
-    logout(request)
-    return redirect("login")  # Redirect to the login page after logout
-
-
-@login_required
-def api_documentation_view(request):
-    return render(request, "api_documentation.html")

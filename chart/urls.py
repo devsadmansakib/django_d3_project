@@ -10,20 +10,34 @@ from .views import (
 )
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 
+# ---------------------------------------
+# Web Routes
+# ---------------------------------------
 
 urlpatterns = [
-    path("", login_view, name="login"),
-    path("dashboard/", dashboard_view, name="dashboard"),  # Home page
-    path("login/", login_view, name="login"),
-    path("chart/", chart_view, name="chart"),
-    path("logout/", logout_view, name="logout"),  # Logout URL
-    path("signup/", signup_view, name="signup"),
-    path("api/docs/", api_documentation_view, name="api_documentation"),
-    path("api/chart-data/", ChartDataAPI.as_view(), name="chart-data-api"),
+    path("", login_view, name="login"),  # Default to login page
+    path("dashboard/", dashboard_view, name="dashboard"),  # Dashboard/Home page
+    path("login/", login_view, name="login"),  # Login page
+    path("signup/", signup_view, name="signup"),  # Signup page
+    path("chart/", chart_view, name="chart"),  # Chart page
+    path("logout/", logout_view, name="logout"),  # Logout
+    path(
+        "api/docs/", api_documentation_view, name="api_documentation"
+    ),  # API documentation
 ]
 
+# ---------------------------------------
+# API Routes
+# ---------------------------------------
 
 urlpatterns += [
-    path("api/token/", TokenObtainPairView.as_view(), name="token_obtain_pair"),
-    path("api/token/refresh/", TokenRefreshView.as_view(), name="token_refresh"),
+    path(
+        "api/chart-data/", ChartDataAPI.as_view(), name="chart-data-api"
+    ),  # Chart data API
+    path(
+        "api/token/", TokenObtainPairView.as_view(), name="token_obtain_pair"
+    ),  # JWT token obtain
+    path(
+        "api/token/refresh/", TokenRefreshView.as_view(), name="token_refresh"
+    ),  # JWT token refresh
 ]
