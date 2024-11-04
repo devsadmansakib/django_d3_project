@@ -38,7 +38,6 @@ def login_view(request):
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
-            messages.success(request, "You have been logged in!")
             return redirect("dashboard")
         else:
             messages.success(request, "There was an error please try again...")
