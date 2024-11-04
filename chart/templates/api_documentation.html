@@ -1,0 +1,98 @@
+{% extends 'base.html' %}
+
+{% block title %}API Documentation - Django D3 Project{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1 class="my-4">API Documentation</h1>
+
+    <!-- Introduction -->
+    <p>This API provides endpoints for authentication and accessing chart data in JSON format. Below is the list of available endpoints and their usage instructions.</p>
+
+    <!-- Token Authentication -->
+    <h3>1. Token Authentication</h3>
+    <p>To access protected endpoints, you need to authenticate and obtain an access token. Use the following endpoints for token creation, refresh, and blacklisting.</p>
+
+    <!-- Obtain Token -->
+    <div class="card my-3">
+        <div class="card-header">
+            <h4>Obtain Token</h4>
+        </div>
+        <div class="card-body">
+            <p><strong>URL:</strong> <code>/api/token/</code></p>
+            <p><strong>Method:</strong> POST</p>
+            <p><strong>Description:</strong> Obtain access and refresh tokens by providing username and password.</p>
+            <p><strong>Parameters:</strong></p>
+            <ul>
+                <li><code>username</code> (string) - Your username</li>
+                <li><code>password</code> (string) - Your password</li>
+            </ul>
+            <p><strong>Example Request:</strong></p>
+            <pre><code>POST /api/token/</code></pre>
+            <p><strong>Example Response:</strong></p>
+            <pre><code>{
+    "access": "your_access_token",
+    "refresh": "your_refresh_token"
+}</code></pre>
+        </div>
+    </div>
+
+    <!-- Refresh Token -->
+    <div class="card my-3">
+        <div class="card-header">
+            <h4>Refresh Token</h4>
+        </div>
+        <div class="card-body">
+            <p><strong>URL:</strong> <code>/api/token/refresh/</code></p>
+            <p><strong>Method:</strong> POST</p>
+            <p><strong>Description:</strong> Use the refresh token to obtain a new access token after the current one expires.</p>
+            <p><strong>Parameters:</strong></p>
+            <ul>
+                <li><code>refresh</code> (string) - Your refresh token</li>
+            </ul>
+            <p><strong>Example Request:</strong></p>
+            <pre><code>POST /api/token/refresh/</code></pre>
+            <p><strong>Example Response:</strong></p>
+            <pre><code>{
+    "access": "new_access_token"
+}</code></pre>
+        </div>
+    </div>
+
+
+
+    <!-- Chart Data Endpoint -->
+    <h3>2. Chart Data</h3>
+    <p>This endpoint provides the data for the D3.js chart in JSON format. You need a valid access token to retrieve the data.</p>
+    
+    <div class="card my-3">
+        <div class="card-header">
+            <h4>Get Chart Data</h4>
+        </div>
+        <div class="card-body">
+            <p><strong>URL:</strong> <code>/api/chart-data/</code></p>
+            <p><strong>Method:</strong> GET</p>
+            <p><strong>Description:</strong> Retrieve the chart data in JSON format.</p>
+            <p><strong>Headers:</strong></p>
+            <ul>
+                <li><code>Authorization</code> - Bearer <code>access_token</code></li>
+            </ul>
+            <p><strong>Example Request:</strong></p>
+            <pre><code>GET /api/chart-data/</code></pre>
+            <p><strong>Example Response:</strong></p>
+            <pre><code>[
+    {
+        "label": "Sample 1",
+        "value": 100,
+        "date": "2024-11-04"
+    },
+    {
+        "label": "Sample 2",
+        "value": 150,
+        "date": "2024-11-05"
+    }
+]</code></pre>
+        </div>
+    </div>
+</div>
+{% endblock %}

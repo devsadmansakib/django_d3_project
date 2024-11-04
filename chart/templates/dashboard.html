@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block title %}Home - Django D3 Project{% endblock %}
+
+{% block content %}
+<div class="jumbotron text-center bg-light py-5">
+    <h1 class="display-4">Welcome to the Django D3 Project</h1>
+    <p class="lead">A demonstration of Django-powered web applications with D3.js visualizations and RESTful APIs.</p>
+    <hr class="my-4">
+    <p>Explore key features:</p>
+    
+    <!-- Features section -->
+    <div class="row justify-content-center mt-4">
+        <div class="col-md-4">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title">Interactive D3.js Charts</h5>
+                    <p class="card-text">View dynamic charts created with D3.js after logging in.</p>
+                    <a href="{% url 'chart' %}" class="btn btn-primary">View Chart</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title">REST API Access</h5>
+                    <p class="card-text">Retrieve chart data through an authenticated REST API.</p>
+                    <a href="{% url 'api_documentation'%}" class="btn btn-secondary">API Documentation</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Project Description -->
+<div class="container mt-5">
+    <h2 class="text-center mb-4">About This Project</h2>
+    <p>This project showcases how to create a full-stack Django application with both web and API functionality:</p>
+    <ul>
+        <li>**D3.js Visualization**: A chart rendered with D3.js, accessible after user login.</li>
+        <li>**Token-Based Authentication**: Secure REST API endpoints, allowing only authorized access.</li>
+        <li>**Bootstrap UI**: A responsive and modern UI using Bootstrap.</li>
+    </ul>
+</div>
+{% endblock %}
