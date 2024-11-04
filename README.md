@@ -91,7 +91,7 @@ Once deployed, you will be able to access the site at: [https://d3.sadman.dev](h
 
 ## Directory Structure
 
-- **`chart_app`**: Contains the Django app with views, models, templates, and static files.
+- **`chart`**: Contains the Django app with views, models, templates, and static files.
 - **`templates`**: HTML templates for signup, login, and chart pages.
 - **`static`**: Static files for styling and scripts.
 
